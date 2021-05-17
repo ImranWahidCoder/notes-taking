@@ -1,0 +1,96 @@
+<!doctype html>
+<html lang="en">
+
+<head>
+    <!-- Required meta tags -->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    <!-- Bootstrap CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.1/dist/css/bootstrap.min.css" rel="stylesheet"
+        integrity="sha384-+0n0xVW2eSR5OomGNYDnhzAbDsOXxcvSN1TPprVMTNDbiYZCxYbOOl7+AMvyTG2x" crossorigin="anonymous">
+
+
+    <link rel="preconnect" href="https://fonts.gstatic.com">
+    <link href="https://fonts.googleapis.com/css2?family=Varela+Round&display=swap" rel="stylesheet">
+
+    <title>Take notes</title>
+    <link rel="stylesheet" href="/css/style.css">
+</head>
+
+<body>
+    <nav class="navbar navbar-expand-lg navbar-light bg-light">
+        <div class="container-fluid">
+            <a class="navbar-brand" href="/">Take notes in Imu way</a>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse"
+                data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false"
+                aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarSupportedContent">
+                <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+                </ul>
+                <form class="d-flex" action="/search" method="POST">
+                    <input class="form-control me-2" type="search" placeholder="Type the title of any note to search"
+                        aria-label="Search" name="box" style="width: 286px;">
+                    <button class="btn btn-outline-success" type="submit">Search</button>
+                </form>
+            </div>
+        </div>
+    </nav>
+
+    <form action="/formSubmit" method="POST" class="likha">
+        <div class="mb-3">
+            <label for="exampleFormControlInput1" class="form-label" style="font-size: 25px;">Title of the note</label>
+            <input type="text" style="text-align: center;" class="form-control" id="exampleFormControlInput1"
+                placeholder="Enter the title" name="title">
+        </div>
+        <div class="mb-3">
+            <label for="exampleFormControlTextarea1" class="form-label" style="font-size: 25px;">Write down your note</label>
+            <textarea style="text-align: center;" class="form-control" id="exampleFormControlTextarea1" rows="3"
+                name="text"></textarea>
+        </div>
+        <button type="submit" class="btn btn-success" id="btn">Add note</button>
+    </form>
+
+    <div class="content">
+        <h4 class="top">
+            <%=heading%>
+        </h4>
+        <div class="container">
+            <form action="/delete" method="POST">
+                <div class="row row-cols-2" id="mainbody">
+                    <% result.forEach((item)=>
+                        {
+                        %>
+                        <div class="col">
+                            <div class="card extra">
+                                <h5 class="card-header" style="font-family: 'Varela Round', sans-serif;">
+                                    <%=item.title%>
+                                </h5>
+                                <div class="card-body whole">
+                                    <p class="card-text time">
+                                        <img src="/images/clock.png" height="40px" width="40px" style="filter: invert(0%); border-radius: 10px;">
+                                        <%=item.time%>
+                                    </p>
+                                    <h6 class="card-title" style="font-family: 'Varela Round', sans-serif; font-size: 17px; font-weight: bolder;">
+                                        <%=item.text%>
+                                    </h6>
+                                    <button type="submit" class="btn btn-danger" style="font-weight: bolder; font-family: 'Varela Round', sans-serif;"
+                                        value="<%=item._id%>" name="remove">Delete</button>
+                                </div>
+                            </div>
+                        </div>
+                        <% }) %>
+                </div>
+            </form>
+        </div>
+    </div>
+
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.1/dist/js/bootstrap.bundle.min.js"
+        integrity="sha384-gtEjrD/SeCtmISkJkNUaaKMoLD0//ElJ19smozuHV6z3Iehds+3Ulb9Bn9Plx0x4"
+        crossorigin="anonymous"></script>
+</body>
+
+</html>
